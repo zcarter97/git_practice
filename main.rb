@@ -1,24 +1,24 @@
-def puts_git(cmd)
-	puts `git #{cmd} -h`
-	menu
-end
+require 'colorize'
+require 'git'
 
-
-
-
-def menu
-	puts "1 Enter git command"
-	puts "2 Exit"
-	choice = gets.to_i
-	case choice
-	when 1
-		puts "Enter git command"
-		puts_git(gets.strip)
-		menu
-	when 2
-		abort('Goodbye!')
-	else
-		puts "invalid choice"
-		menu
+class Main
+	include Git
+	def menu
+	  puts 'MAIN MENU'.colorize(:cyan)
+	  puts '1: Enter git command'.colorize(:cyan)
+	  puts '2: Exit'.colorize(:red)
+	  choice = gets.to_i
+	  case choice
+	  when 1
+	    puts 'Enter git command'.colorize(:green)
+	    Git.puts_git(gets.strip)
+	    menu
+	  when 2
+	    exit
+	  else
+	    puts 'Invalid choice'.colorize(:red)
+	    menu
+	  end
 	end
 end
+Main.menu
